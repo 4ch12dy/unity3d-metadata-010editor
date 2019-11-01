@@ -1,11 +1,11 @@
 //------------------------------------------------
 //--- 010 Editor v9.0.1 Binary Template
 //
-//      File: unityMetadata.bt
+//      File: UnityMetadata.bt
 //   Authors: xia0
 //   Version: 0.1
 //   Purpose: parse unity3d metadata file
-//  Category: misc
+//  Category: Game
 // File Mask: *.dat
 //  ID Bytes: FA B1 1B AF
 //   History: 
