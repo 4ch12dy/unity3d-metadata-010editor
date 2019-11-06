@@ -221,19 +221,32 @@ typedef struct Il2CppMetadataUsagePair
     uint32 encodedSourceIndex;
 } Il2CppMetadataUsagePair;
 
+struct Il2CppStringLiteral
+{
+    uint32 length;
+    StringLiteralIndex dataIndex;
+};
+
+
 Il2CppGlobalMetadataHeader metadataHeader <comment="metadata header information">;
 
-FSeek(metadataHeader.imagesOffset);
-Il2CppImageDefinition imagesDefinitions[metadataHeader.imagesCount / sizeof(Il2CppImageDefinition)] <comment="metadata define images">;
+FSeek(metadataHeader.stringLiteralOffset);
+Il2CppStringLiteral stringLiteralTable[metadataHeader.stringLiteralCount / sizeof(Il2CppStringLiteral)] <comment="metadata string literal table">;
+
+FSeek(metadataHeader.stringOffset);
+char stringTable[metadataHeader.stringCount] <comment="metadata string table">;
 
 FSeek(metadataHeader.assembliesOffset);
 Il2CppAssemblyDefinition assemblyDefinitions[metadataHeader.imagesCount / sizeof(Il2CppImageDefinition)] <comment="metadata define assemblys">;
 
 FSeek(metadataHeader.typeDefinitionsOffset);
-Il2CppTypeDefinition typeDefinitions[metadataHeader.assembliesCount / sizeof(Il2CppAssemblyDefinition)] <comment="metadata define types">;
+Il2CppTypeDefinition typeDefinitions[metadataHeader.typeDefinitionsCount / sizeof(Il2CppAssemblyDefinition)] <comment="metadata define types">;
+
+FSeek(metadataHeader.metadataUsageListsOffset);
+Il2CppMetadataUsageList metadataUsageLists[metadataHeader.metadataUsageListsCount / sizeof(Il2CppMetadataUsageList)] <comment="metadata string literal table">;
+
+FSeek(metadataHeader.imagesOffset);
+Il2CppImageDefinition imagesDefinitions[metadataHeader.imagesCount / sizeof(Il2CppImageDefinition)] <comment="metadata define images">;
 
 FSeek(metadataHeader.metadataUsagePairsOffset);
 Il2CppMetadataUsagePair metadataUsagePair[metadataHeader.metadataUsagePairsCount / sizeof(Il2CppMetadataUsagePair)] <comment="metadata metadata usage pair">;
-
-FSeek(metadataHeader.metadataUsageListsOffset);
-Il2CppMetadataUsageList metadataUsageList[metadataHeader.metadataUsageListsCount / sizeof(Il2CppMetadataUsageList)] <comment="metadata metadata usage list">;
